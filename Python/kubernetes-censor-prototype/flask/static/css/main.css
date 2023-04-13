@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #e6e6e6;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form {
+    text-align: center;
+}
+
+.label {
+    font-size: 40px;
+}
+
+.textarea {
+    background-color: #d9d9d9;
+    border: 2px solid #000000;
+    padding: 5px;
+    font-size: 20px;
+}
+
+input[type="submit"] {
+    height: 40px;
+    width: 120px;
+    font-size: 16px;
+    background-color: #4e4e4e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
