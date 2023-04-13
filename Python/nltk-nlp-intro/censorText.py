@@ -53,19 +53,18 @@ def regex_phone_numbers(text, censor_replacement):
     for match in result:
         sStart, sEnd = match.span()
         pNumber = text[sStart:sEnd]
-                                                # replace with commented out if format/length dont need to be censored
-        ret += text[prevend:sStart] + censor_replacement #''.join("*" if c.isdigit() else c for c in pNumber)
+        ret += text[prevend:sStart] + ''.join(censor_replacement if c.isdigit() else c for c in pNumber)
         prevend = sEnd
     ret += text[prevend:]
     return ret
 
 
 def censor_text(text):
-    censor_replacement = "-REDACTED-"
-    current_text = regex_phone_numbers(text, censor_replacement)
-    
-    doc = spacy_md(current_text)
-    entities_removed = " ".join([entity.text if not entity.ent_type_ else censor_replacement for entity in doc])
+    censor_replacement = "█"    
+    doc = spacy_md(text)
+    entities_removed = " ".join([entity.text if not entity.ent_type_ else censor_replacement*len(entity.text) for entity in doc])
+
+    phone_numbers_removed = regex_phone_numbers(text, censor_replacement)
     return entities_removed
 
 
@@ -79,5 +78,5 @@ if __name__ == "__main__":
     Gazprom is one of the key players in the complex Russian energy market, where the government of Vladimir Putin has made moves to regain state influence over the sector. Gazprom is set to merge with state oil firm Rosneft, the company that eventually acquired Yuganskneftegas, the main unit of embattled oil giant Yukos. Claims for back-taxes was a tool used against Yukos, and led to the enforced sale Yuganskneftegas. Some analysts fear the Kremlin will continue to use these sort of moves to boost the efforts of the state to regain control over strategically important sectors such as oil."""
 
     censored_text = censor_text(example_text)
-    print(example_text)
+    print(example_text + '\n\n\n')
     print(censored_text)
