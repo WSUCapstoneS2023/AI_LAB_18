@@ -17,7 +17,7 @@ def index():
         timetocompute = str((time_end - time_start).microseconds // 1000)
         return render_template('index.html', output=output, content=content, timetocompute=timetocompute)
     else:
-        return render_template('index.html')
+        return render_template('index.html', output=output, content=content)
 
 if __name__ == "__main__":
     app.run(debug=True)

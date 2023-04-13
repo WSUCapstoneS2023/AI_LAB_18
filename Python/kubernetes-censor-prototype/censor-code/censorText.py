@@ -60,11 +60,11 @@ def regex_phone_numbers(text, censor_replacement):
 
 
 def censor_text(text):
-    censor_replacement = "█"    
+    censor_replacement = "█"
     doc = spacy_md(text)
     entities_removed = " ".join([entity.text if not entity.ent_type_ else censor_replacement*len(entity.text) for entity in doc])
 
-    phone_numbers_removed = regex_phone_numbers(text, censor_replacement)
+    phone_numbers_removed = regex_phone_numbers(entities_removed, censor_replacement)
     return phone_numbers_removed
 
 
