@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: censor-flask-app
+  labels:
+    app: censor-flask-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: censor-flask-app
+  template:
+    metadata:
+      labels:
+        app: censor-flask-app
+    spec:
+      containers:
+      - name: censor-flask-app
+        image: censor-flask-app
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+        - name: FLASK_ENV
+          value: "production"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: censor-flask-app-service
+  labels:
+    app: censor-flask-app
+spec:
+  selector:
+    app: censor-flask-app
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer

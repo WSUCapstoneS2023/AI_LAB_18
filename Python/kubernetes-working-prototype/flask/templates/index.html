@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{%  block head %}
+
+{% endblock %}
+
+{%  block body %}
+<div class="form">
+    <form action="/" method="POST">
+      <label for="content" class="label">Text Anonymizer:</label>
+      <br>
+      <textarea name="content" class="textarea" id="content" rows="20" cols="100">{% if content %}{{ content }} {% endif %}</textarea>
+      <br>
+      <input type="submit" value="Censor">
+    </form>
+    <br>
+    <label for="output" class="label">Censored Text: {% if timetocompute %}({{ timetocompute }}ms){% endif %}</label>
+    <br>
+    <textarea name="output" class="textarea" id="output" rows="20" cols="100" readonly>{% if output %}{{ output }}{% endif %}</textarea>
+  </div>
+{% endblock %}
